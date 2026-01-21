@@ -11,7 +11,7 @@ services:
       MYSQL_USER: springboot_user
       MYSQL_PASSWORD: springboot_password
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
       - mariadb_data:/var/lib/mysql
       - ./database/create-database.sql:/docker-entrypoint-initdb.d/create-database.sql:ro
@@ -35,7 +35,7 @@ services:
       SPRING_DATASOURCE_PASSWORD: rootpassword
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
     ports:
-      - "8080:8080"
+      - "8090:8080"
     depends_on:
       mariadb:
         condition: service_healthy
@@ -49,7 +49,7 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
       args:
-        REACT_APP_API_URL: http://localhost:8080
+        REACT_APP_API_URL: http://localhost:8090
     container_name: springboot-frontend
     ports:
       - "3000:80"
